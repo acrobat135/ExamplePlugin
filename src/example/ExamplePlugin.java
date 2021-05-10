@@ -2,6 +2,7 @@ package example;
 
 import arc.util.*;
 import arc.*;
+import mindustry.core.*;
 import mindustry.game.*;
 import mindustry.mod.*;
 import mindustry.gen.*;
@@ -11,18 +12,18 @@ public class ExamplePlugin extends Plugin{
 
     //called when game initializes
     @Override
-    public void init(){
-        
+    public void init() {
+
         Events.on(EventType.PlayerChatEvent.class, event -> {
             if (!event.message.startsWith("/")) {
-                String prefix = player.admin() ? "[[red]АДМИН[]]" : "[ИГРОК]";
+                String prefix = event.player.admin() ? "[[red]АДМИН[]]" : "[ИГРОК]";
                 String playerName = NetClient.colorizeName(event.player.id, event.player.name);
                 Call.sendMessage(prefix + playerName + event.message);
             }
         });
 
         Vars.netServer.admins.addChatFilter((player, text) -> null);
-
+    }
 
     //register commands that player can invoke in-game
     @Override
@@ -30,7 +31,7 @@ public class ExamplePlugin extends Plugin{
         handler.removeCommand("a");
         handler.removeCommand("t");
         handler.<Player>register("a", "<текст...>", "Отправить админское сообщение", (args, player) -> {
-            if (!player.admin) {
+            if (!player.admin()) {
                 player.sendMessage("[scarlet]Ты не админ!");
                 return;
             }
@@ -41,7 +42,8 @@ public class ExamplePlugin extends Plugin{
 
             Groups.player.each(Player::admin, otherPlayer -> {
                 otherPlayer.sendMessage("<[scarlet]A[]>" + prefix + playerName + message);
-            });        
+            });
+        });
         handler.<Player>register("t", "<текст...>", "Отправить командное сообщение", (args, player) -> {
             String message = args[0];
             String playerName = NetClient.colorizeName(player.id, player.name);
