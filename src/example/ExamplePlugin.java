@@ -16,9 +16,9 @@ public class ExamplePlugin extends Plugin{
 
         Events.on(EventType.PlayerChatEvent.class, event -> {
             if (!event.message.startsWith("/")) {
-                String prefix = event.player.admin() ? "[scarlet]АДМИН[white] | " : "[cyan]ИГРОК[white] | ";
+                String prefix = event.player.admin() ? "[scarlet]Админ[white] | " : "[cyan]Игрок[white] | ";
                 String playerName = NetClient.colorizeName(event.player.id, event.player.name);
-                Call.sendMessage(prefix + playerName + " [white]| " + event.message);
+                Call.sendMessage(prefix + playerName + " [gold]>[] " + event.message);
             }
         });
 
@@ -37,20 +37,20 @@ public class ExamplePlugin extends Plugin{
             }
 
             String message = args[0];
-            String prefix = "[scarlet]АДМИН[] | ";
+            String prefix = "[scarlet]Админ[] | ";
             String playerName = NetClient.colorizeName(player.id, player.name);
 
             Groups.player.each(Player::admin, otherPlayer -> {
-                otherPlayer.sendMessage("<[scarlet]A[]>" + prefix + playerName + " [white]| " + message);
+                otherPlayer.sendMessage("<[scarlet]A[]>" + prefix + playerName + " [gold]> " + message);
             });
         });
         handler.<Player>register("t", "<текст...>", "Отправить командное сообщение", (args, player) -> {
             String message = args[0];
             String playerName = NetClient.colorizeName(player.id, player.name);
-            String prefix = player.admin() ? "[scarlet]АДМИН[white] | " : "[cyan]ИГРОК[white] | ";
+            String prefix = player.admin() ? "[scarlet]Админ[white] | " : "[cyan]Игрок[white] | ";
 
             Groups.player.each(o -> o.team() == player.team(), otherPlayer -> {
-                otherPlayer.sendMessage("<[#" + player.team().color + "]T[]>" + prefix + playerName + " [white]| " + message);
+                otherPlayer.sendMessage("<[#" + player.team().color + "]T[]>" + prefix + playerName + " [gold]> " + message);
             });
         });
     }
