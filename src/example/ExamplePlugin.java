@@ -41,9 +41,7 @@ public class ExamplePlugin extends Plugin{
 
             Groups.player.each(Player::admin, otherPlayer -> {
                 otherPlayer.sendMessage("<[scarlet]A[]>" + prefix + playerName + message);
-            });
-        });
-        
+            });        
         handler.<Player>register("t", "<текст...>", "Отправить командное сообщение", (args, player) -> {
             String message = args[0];
             String playerName = NetClient.colorizeName(player.id, player.name);
@@ -52,7 +50,6 @@ public class ExamplePlugin extends Plugin{
             Groups.player.each(o -> o.team() == player.team(), otherPlayer -> {
                 otherPlayer.sendMessage("<[#" + player.team().color + "]T[]>" + prefix + playerName + message);
             });
-
         });
     }
 }
