@@ -47,7 +47,7 @@ public class ExamplePlugin extends Plugin{
         handler.<Player>register("t", "<текст...>", "Отправить командное сообщение", (args, player) -> {
             String message = args[0];
             String playerName = NetClient.colorizeName(player.id, player.name);
-            String prefix = event.player.admin() ? "[scarlet]АДМИН[white] | " : "[cyan]ИГРОК[white] | ";
+            String prefix = player.admin() ? "[scarlet]АДМИН[white] | " : "[cyan]ИГРОК[white] | ";
 
             Groups.player.each(o -> o.team() == player.team(), otherPlayer -> {
                 otherPlayer.sendMessage("<[#" + player.team().color + "]T[]>" + prefix + playerName + " [white]| " + message);
