@@ -19,6 +19,7 @@ public class ExamplePlugin extends Plugin{
                 String prefix = event.player.admin() ? "[scarlet]Админ[white] | " : "[cyan]Игрок[white] | ";
                 String playerName = NetClient.colorizeName(event.player.id, event.player.name);
                 Call.sendMessage(prefix + playerName + " [gold]>[] " + event.message);
+                Log.info(event.player.name + "| " + event.message);
             }
         });
 
@@ -39,7 +40,7 @@ public class ExamplePlugin extends Plugin{
             String message = args[0];
             String prefix = "[scarlet]Админ[] | ";
             String playerName = NetClient.colorizeName(player.id, player.name);
-
+            Log.info(player.name + "| " + message);
             Groups.player.each(Player::admin, otherPlayer -> {
                 otherPlayer.sendMessage("<[scarlet]A[]>" + prefix + playerName + " [gold]> " + message);
             });
@@ -48,7 +49,7 @@ public class ExamplePlugin extends Plugin{
             String message = args[0];
             String playerName = NetClient.colorizeName(player.id, player.name);
             String prefix = player.admin() ? "[scarlet]Админ[white] | " : "[cyan]Игрок[white] | ";
-
+            Log.info(player.name + "| " + message);
             Groups.player.each(o -> o.team() == player.team(), otherPlayer -> {
                 otherPlayer.sendMessage("<[#" + player.team().color + "]T[]>" + prefix + playerName + " [gold]> " + message);
             });
